@@ -3,17 +3,16 @@ import streamlit as st
 
 # Connection details
 host = "localhost"
-port = "3307"  # Update with your actual port
+port = "3307"
 user = "root"
-passwd = "anuj232003"  # Update with your actual password
-database = "myDb"  # Update with your actual database name
+passwd = "anuj232003"
+database = "myDb"
 
-# Print connection details
+
 print(
     f"Connecting to MySQL server at {host}:{port} as user {user} for database {database}"
 )
 
-# Initialize the connection variable
 conn = None
 
 # Attempt to establish a connection
@@ -31,7 +30,6 @@ except mysql.connector.Error as err:
 
 # Function to view all data
 def view_all_data():
-    # Check if the connection is established before executing the query
     if conn is not None:
         c.execute("SELECT * FROM insurance ORDER BY id ASC")
         data = c.fetchall()

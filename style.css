@@ -12,10 +12,21 @@
 div[data-testid="stExpander"] div[role="button"] p {
   font-size: 1.2rem;
   color: rgb(0, 0, 0);
+  background-color: #e3f2fd;
   border-color: #000000;
   color-scheme: #000000;
 }
 
 .sidebar-content {
   color: white;
+}
+
+div[data-testid="stSidebar"] {
+  background-color: #e3f2fd;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+div[data-testid="stSidebar"] .sidebar-content h1 {
+  color: #fff;
 }

@@ -9,13 +9,10 @@ from streamlit_extras.metric_cards import style_metric_cards
 st.set_option("deprecation.showPyplotGlobalUse", False)
 import plotly.graph_objs as go
 from streamlit_option_menu import option_menu
-
-
-# uncomment this line if you use mysql
 from query import *
 
-st.set_page_config(page_title="Dashboard", page_icon="🌍,,," ,layout="wide")
-st.header("ANALYTICS WEB DASHBOARD | INSURANCE KPI  &  TRENDS ")
+st.set_page_config(page_title="Dashboard", layout="wide")
+st.header("ANALYTICS WEB DASHBOARD | INSURANCE KPI & TRENDS ")
 
 # all graphs we use custom css not streamlit
 theme_plotly = None
@@ -25,17 +22,12 @@ theme_plotly = None
 with open("style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# uncomment these two lines if you fetch data from mysql
+# not using this since we are loading f=data directly from excel file
 # result = view_all_data()
 # df=pd.DataFrame(result,columns=["Policy","Expiry","Location","State","Region","Investment","Construction","BusinessType","Earthquake","Flood","Rating","id"])
 
-# load excel file | comment this line when  you fetch data from mysql
+# loading  excel file
 df = pd.read_excel("data.xlsx", sheet_name="Sheet1")
-
-# side bar logo
-
-
-# switcher
 
 region = st.sidebar.multiselect(
     "SELECT REGION",
@@ -58,7 +50,6 @@ df_selection = df.query(
 )
 
 
-# this function performs basic descriptive analytics like Mean,Mode,Sum  etc
 def Home():
     with st.expander("VIEW EXCEL DATASET"):
         showData = st.multiselect(
@@ -88,23 +79,23 @@ def Home():
 
     total1, total2, total3, total4, total5 = st.columns(5, gap="small")
     with total1:
-        st.info("Total Sum Investment", icon="💰")
+        st.info("Total Sum Investment")
         st.metric(label="Sum TZS", value=f"{total_investment:,.0f}")
 
     with total2:
-        st.info("Most Frequent Investment", icon="💰")
+        st.info("Most Frequent Investment")
         st.metric(label="Mode TZS", value=f"{investment_mode:,.0f}")
 
     with total3:
-        st.info("Average Mean", icon="💰")
+        st.info("Average Mean")
         st.metric(label="Average TZS", value=f"{investment_mean:,.0f}")
 
     with total4:
-        st.info("Central Earnings", icon="💰")
+        st.info("Central Earnings")
         st.metric(label="Median TZS", value=f"{investment_median:,.0f}")
 
     with total5:
-        st.info("Ratings", icon="💰")
+        st.info("Ratings")
         st.metric(
             label="Rating", value=numerize(rating), help=f""" Total Rating: {rating} """
         )
@@ -216,7 +207,7 @@ def sideBar():
             "Main Menu",
             ["Home", "Progress"],
             index=0,
-            format_func=lambda x: "🏠 Home" if x == "Home" else "👁️ Progres,,,,,,,s"
+            format_func=lambda x: "Home" if x == "Home" else "ProgressBar",
         )
 
     if selected == "Home":
